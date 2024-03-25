@@ -19,7 +19,10 @@ namespace App.Model
         public int CarPrice { get; set; }
 
         [Required(ErrorMessage = "Please enter car type")]
-        public int CarType { get; set; }
+
+        [ForeignKey("CarType")]
+        public int CarTypeId { get; set; }
+        public CarType CarType { get; set; }
 
     }
 }

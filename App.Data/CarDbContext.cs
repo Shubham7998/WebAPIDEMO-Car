@@ -8,5 +8,16 @@ namespace App.Data
         public CarDbContext(DbContextOptions options) : base(options) { }
 
         public DbSet<Car> Cars { get; set; }
+
+        public DbSet<CarType> CarsType { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<Car>()
+                .HasOne(c => c.CarType)
+                .WithMany()
+                .HasForeignKey(c => c.CarTypeId)
+                .OnDelete(DeleteBehavior.Cascade);
+        }
     }
 }

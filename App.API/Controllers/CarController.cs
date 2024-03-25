@@ -1,4 +1,5 @@
-﻿using App.IServices;
+﻿using App.DTO;
+using App.IServices;
 using App.Model;
 using Microsoft.AspNetCore.Mvc;
 
@@ -18,28 +19,28 @@ namespace App.API.Controllers
         }
         // GET: api/<CarController>
         [HttpGet]
-        public Task<IEnumerable<Car>> Get()
+        public Task<IEnumerable<GetCarDto>> Get()
         {
             return _carService.GetCarsAsync();
         }
 
         // GET api/<CarController>/5
         [HttpGet("{id}")]
-        public async Task<Car> Get(int id)
+        public async Task<GetCarDto> Get(int id)
         {
             return await _carService.GetCarAsync(id);
         }
 
         // POST api/<CarController>
         [HttpPost]
-        public async Task<Car> Post([FromBody] Car car)
+        public async Task<GetCarDto> Post([FromBody] CreateCarDto car)
         {
             return await _carService.CreateCarAsync(car);
         }
 
         // PUT api/<CarController>/5
         [HttpPut("{id}")]
-        public async Task<Car> Put(int id, [FromBody] Car car)
+        public async Task<GetCarDto> Put(int id, [FromBody] UpdateCarDto car)
         {
             return await _carService.UpdateCarAsync(id, car);
         }

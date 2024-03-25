@@ -16,12 +16,12 @@ namespace App.Services
         {
             var car = await _carRepository.CreateAsync(new Car()
             {
-                CarType = carDto.CarType,
+                CarTypeId = carDto.CarType,
                 CarModel = carDto.CarModel,
                 CarPrice = carDto.CarPrice,
             });
 
-            return new GetCarDto(car.CarId, car.CarModel, car.CarPrice, car.CarType);
+            return new GetCarDto(car.CarId, car.CarModel, car.CarPrice, car.CarTypeId);
         }
 
         public async Task<bool> DeleteCarAsync(int Id)
@@ -38,14 +38,14 @@ namespace App.Services
         public async Task<GetCarDto> GetCarAsync(int Id)
         {
             var car = await _carRepository.GetByIdAsync(Id);
-            return new GetCarDto(car.CarId, car.CarModel, car.CarPrice, car.CarType);
+            return new GetCarDto(car.CarId, car.CarModel, car.CarPrice, car.CarTypeId);
         }
 
         public async Task<IEnumerable<GetCarDto>> GetCarsAsync()
         {
             var cars = await _carRepository.GetAllAsync();
 
-            var carDto = cars.Select(car => new GetCarDto(car.CarId, car.CarModel, car.CarPrice, car.CarType));
+            var carDto = cars.Select(car => new GetCarDto(car.CarId, car.CarModel, car.CarPrice, car.CarTypeId));
 
             return carDto;
         }
@@ -57,11 +57,11 @@ namespace App.Services
             if (oldCar != null)
             {
                 oldCar.CarPrice = carDto.CarPrice;
-                oldCar.CarType = carDto.CarType;
+                oldCar.CarTypeId = carDto.CarType;
                 oldCar.CarModel = carDto.CarModel; 
 
                 await _carRepository.UpdateAsync(oldCar);
-                 return new GetCarDto(oldCar.CarId, oldCar.CarModel, oldCar.CarPrice, oldCar.CarType);
+                 return new GetCarDto(oldCar.CarId, oldCar.CarModel, oldCar.CarPrice, oldCar.CarTypeId);
                 
             }
 
